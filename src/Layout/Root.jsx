@@ -6,11 +6,11 @@ import Footer from '../Shared/Footer';
 const Root = () => {
     return (
       <div>
-        <div className="min-h-[calc(100vh-380px)] md:min-h-[calc(100vh-520px)]">
+        <div className="min-h-[calc(100vh-308px)] md:min-h-[calc(100vh-460px)]">
           <NavBar></NavBar>
         </div>
 
-        <div className="container md:mx-auto mx-4">
+        <div className="container mx-auto">
           <Outlet></Outlet>
         </div>
 
