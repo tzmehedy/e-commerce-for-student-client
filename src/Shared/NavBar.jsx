@@ -3,10 +3,12 @@ import logo from '../assets/images/Logo (2).png'
 import { Link, NavLink } from 'react-router-dom';
 import { AuthContext } from '../Provider/AuthProvider';
 import Swal from 'sweetalert2';
+import { RxAvatar } from 'react-icons/rx';
 
 
 const NavBar = () => {
  const {user, logOut} = useContext(AuthContext)
+ console.log(user)
     const navLinks = (
       <>
         <li className='mr-2'>
@@ -68,12 +70,24 @@ const NavBar = () => {
         </div>
         <div className="navbar-end">
           {user ? (
-            <button
-              onClick={handelLogout}
-              className="btn bg-[#F9128F] text-[#00546c] font-bold"
-            >
-              Log Out
-            </button>
+            <div className="flex items-center space-x-2">
+              {/* <img src={user.photoURL ? user.photoURL : <RxAvatar />} alt="" /> */}
+              {user.photoURL ? (
+                <button>
+                  <img className="w-10 h-10" src={user.photoURL} alt="" />
+                </button>
+              ) : (
+                <button>
+                  <RxAvatar className="w-10 h-10 text-[#F9128F]" />
+                </button>
+              )}
+              <button
+                onClick={handelLogout}
+                className="btn bg-[#F9128F] text-[#00546c] font-bold"
+              >
+                Log Out
+              </button>
+            </div>
           ) : (
             <Link
               to={"/login"}
@@ -82,7 +96,6 @@ const NavBar = () => {
               Login
             </Link>
           )}
-          
         </div>
       </div>
     );
