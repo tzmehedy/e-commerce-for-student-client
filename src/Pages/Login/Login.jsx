@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { FaFacebook, FaGithub } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Provider/AuthProvider';
 import Swal from 'sweetalert2';
 
@@ -12,6 +12,9 @@ const Login = () => {
 
   const { user, loginWithGoogle, loginWithEmailPassword } =
     useContext(AuthContext);
+  const location = useLocation()
+
+  const navigate = useNavigate()
 
   const handelLoginWithEmailPassword = (e) =>{
     e.preventDefault()
@@ -25,6 +28,7 @@ const Login = () => {
         text: "Login Successfully",
         icon: "success",
       });
+      navigate(location.state? location.state : "/")
     })
     .catch(error=>{
       Swal.fire({
