@@ -45,10 +45,18 @@ const Login = () => {
 
     loginWithGoogle()
     .then(result=>{
-      console.log(result)
+      Swal.fire({
+        text: "Login Successfully",
+        icon: "success",
+      });
+      navigate(location.state ? location.state : "/");
     })
     .catch(error=>{
-      console.log(error)
+      Swal.fire({
+        title: "Error!",
+        text: `${error.message}`,
+        icon: "error",
+      });
     })
 
   }
