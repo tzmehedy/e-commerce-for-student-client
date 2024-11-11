@@ -3,14 +3,39 @@ import { FaFacebook, FaGithub } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Provider/AuthProvider';
+import Swal from 'sweetalert2';
 
 
 
 // text-[#26E13F]
 const Login = () => {
 
-  const {user, loginWithGoogle} = useContext(AuthContext)
+  const { user, loginWithGoogle, loginWithEmailPassword } =
+    useContext(AuthContext);
 
+  const handelLoginWithEmailPassword = (e) =>{
+    e.preventDefault()
+    const form = e.target 
+    const email = form.email.value 
+    const password = form.password.value 
+
+    loginWithEmailPassword(email,password)
+    .then(result=>{
+      Swal.fire({
+        text: "Login Successfully",
+        icon: "success",
+      });
+    })
+    .catch(error=>{
+      Swal.fire({
+        title: "Error!",
+        text: `${error.message}`,
+        icon: "error",
+      });
+
+    })
+
+  }
 
   const handelLoginWithGoogle = () =>{
 
@@ -35,10 +60,9 @@ const Login = () => {
               excepturi exercitationem quasi. In deleniti eaque aut repudiandae
               et a id nisi.
             </p>
-           
           </div>
           <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-            <form className="card-body">
+            <form onSubmit={handelLoginWithEmailPassword} className="card-body">
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Email</span>
@@ -46,6 +70,7 @@ const Login = () => {
                 <input
                   type="email"
                   placeholder="email"
+                  name="email"
                   className="input input-bordered"
                   required
                 />
@@ -57,6 +82,7 @@ const Login = () => {
                 <input
                   type="password"
                   placeholder="password"
+                  name="password"
                   className="input input-bordered"
                   required
                 />
@@ -68,7 +94,10 @@ const Login = () => {
               </div>
             </form>
             <div className="w-full text-center mb-3">
-              <button onClick={handelLoginWithGoogle} className="font-bold mr-2 text-[#064C71] text-2xl">
+              <button
+                onClick={handelLoginWithGoogle}
+                className="font-bold mr-2 text-[#064C71] text-2xl"
+              >
                 <FcGoogle />
               </button>
               <button className="font-bold text-blue-700 text-2xl">
