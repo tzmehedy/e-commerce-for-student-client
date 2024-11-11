@@ -9,13 +9,13 @@ const CarouselSlide = ({image, text}) => {
       >
         <div className="flex items-center justify-center w-full h-full bg-gray-900/40">
           <div className="text-center space-y-5">
-            <h1 className="text-3xl font-semibold text-white lg:text-4xl">
+            <h1 className="text-sm font-semibold text-[#26E13F] lg:text-4xl">
               {text}
             </h1>
             <button>
               <Link
                 to={"/addJobs"}
-                className="w-full px-5 py-2  font-bold text-white  bg-blue-600 rounded-md "
+                className="w-full px-5 py-2  font-bold text-[#00546c]  bg-[#F9128F] rounded-md "
               >
                 Add Job
               </Link>
