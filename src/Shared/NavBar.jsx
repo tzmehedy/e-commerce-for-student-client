@@ -20,7 +20,7 @@ const NavBar = () => {
         </li>
 
         {
-          user && userRole === true ? <li className='mr-2'>
+          user && userRole !== true ? <li className='mr-2'>
           <NavLink to={'/myBids'}>My Bids</NavLink>
         </li> : ""
         }
@@ -28,7 +28,7 @@ const NavBar = () => {
 
 
         {
-          user && userRole != true ? <><li className='mr-2'>
+          user && userRole === true ? <><li className='mr-2'>
           <NavLink to={'/addJobs'}>Add Jobs</NavLink>
         </li>
         <li className='mr-2'>
@@ -95,7 +95,7 @@ const NavBar = () => {
           {
             user ? <button onClick={()=>setUserRole(!userRole)} className='mr-2 underline'>
             {
-              userRole ? "Switch to buying" : "Switch to selling"
+              userRole ? "Switch to selling" : "Switch to buying"
             }
             </button> : ""
           }
