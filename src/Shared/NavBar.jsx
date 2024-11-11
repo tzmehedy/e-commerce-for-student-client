@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import logo from '../assets/images/Logo (2).png'
 import { Link, NavLink } from 'react-router-dom';
 import { AuthContext } from '../Provider/AuthProvider';
@@ -8,6 +8,7 @@ import { RxAvatar } from 'react-icons/rx';
 
 const NavBar = () => {
  const {user, logOut} = useContext(AuthContext)
+ const [userRole, setUserRole] = useState(true)
  console.log(user)
     const navLinks = (
       <>
@@ -17,6 +18,28 @@ const NavBar = () => {
         <li className='mr-2'>
           <NavLink to={'/about'}>About</NavLink>
         </li>
+
+        {
+          user && userRole === true ? <li className='mr-2'>
+          <NavLink to={'/myBids'}>My Bids</NavLink>
+        </li> : ""
+        }
+        
+
+
+        {
+          user && userRole != true ? <><li className='mr-2'>
+          <NavLink to={'/addJobs'}>Add Jobs</NavLink>
+        </li>
+        <li className='mr-2'>
+          <NavLink to={'/myPostedJobs'}>My Posted Jobs</NavLink>
+        </li>
+        <li className='mr-2'>
+          <NavLink to={'/bidRequest'}>Bid Request</NavLink>
+        </li></> : ""
+        }
+        
+        
       </>
     );
 
@@ -69,6 +92,13 @@ const NavBar = () => {
           <ul className="menu menu-horizontal px-1">{navLinks}</ul>
         </div>
         <div className="navbar-end">
+          {
+            user ? <button onClick={()=>setUserRole(!userRole)} className='mr-2 underline'>
+            {
+              userRole ? "Switch to buying" : "Switch to selling"
+            }
+            </button> : ""
+          }
           {user ? (
             <div className="flex items-center space-x-2">
               {/* <img src={user.photoURL ? user.photoURL : <RxAvatar />} alt="" /> */}
