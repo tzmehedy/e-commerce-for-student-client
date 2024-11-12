@@ -26,30 +26,37 @@ const router = createBrowserRouter([
           {
             path: "/",
             element: <AllJobs></AllJobs>,
+            loader: () => fetch("http://localhost:5000/allJobs"),
           },
           {
             path: "webDevelopment",
             element: <WebDevelopment></WebDevelopment>,
+            loader: () => fetch("http://localhost:5000/webDevelopment"),
           },
           {
             path: "graphicsDesign",
             element: <GraphicsDesign></GraphicsDesign>,
+            loader: () => fetch("http://localhost:5000/graphicsDesign"),
           },
           {
             path: "videoEditing",
             element: <VideoEditing></VideoEditing>,
+            loader: () => fetch("http://localhost:5000/videoEditing"),
           },
           {
             path: "digitalMarketing",
             element: <DigitalMarketing></DigitalMarketing>,
+            loader: () => fetch("http://localhost:5000/digitalMarketing"),
           },
           {
             path: "aiServices",
             element: <AiServices></AiServices>,
+            loader: () => fetch("http://localhost:5000/aiServices"),
           },
           {
             path: "writingTranslation",
             element: <WritingTranslation></WritingTranslation>,
+            loader: () => fetch("http://localhost:5000/writingTranslation"),
           },
         ],
       },
