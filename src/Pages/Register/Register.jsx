@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Provider/AuthProvider';
 import Swal from 'sweetalert2';
 
 const Register = () => {
-  const { user, userWithEmailPass } = useContext(AuthContext);
+  const {signUpWithEmailPass } = useContext(AuthContext);
+
+  const navigate = useNavigate()
 
 
   const handelRegister = (e) =>{
@@ -16,23 +18,13 @@ const Register = () => {
     const password = form.password.value
     const photo = form.photo.value
 
-    userWithEmailPass(email,password)
-    .then(result =>{
-      console.log(result)
-      Swal.fire({
-        title: "Good job!",
-        text: "Registration Successfully",
-        icon: "success",
+    signUpWithEmailPass(email, password)
+      .then((result) => {
+        navigate("/");
+      })
+      .catch((error) => {
+        
       });
-    })
-    .catch(error=>{
-      console.log(error.message)
-      Swal.fire({
-        title: "Error!",
-        text: `${error.message}`,
-        icon: "error",
-      });
-    })
   }
     return (
       <div className="hero bg-[#064C71]  min-h-screen">
