@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import { AuthContext } from '../../Provider/AuthProvider';
+import Swal from 'sweetalert2';
 
 const JobDetails = () => {
     const jobInfo = useLoaderData()
@@ -8,6 +9,44 @@ const JobDetails = () => {
     const {user} = useContext(AuthContext)
 
     const { title, deadline, description, minimumPrice, maximumPrice, email, _id } = jobInfo
+
+    const handelPlaceTheBid = (e)=>{
+        e.preventDefault()
+        if(user?.email === email) {
+          return Swal.fire({
+            title: "Error",
+            text: "Not Permitted for the bid",
+            icon: "error",
+          });
+        }
+        const form = e.target 
+        const sellerEmail = user?.email 
+        const name = form.name.value 
+        const offerPrice = form.price.value 
+        const deadline = form.deadline.value 
+        const comments = form.comments.value 
+        const buyerEmail = email 
+        const status = "pending"
+
+
+        if( parseInt(offerPrice)< parseInt(minimumPrice)){
+          return Swal.fire({
+            title: "Error",
+            text: "The price will be grater than or equal Minimum price",
+            icon: "error",
+          });
+
+        }
+
+
+
+        const bidInfo = {
+            sellerEmail, name, offerPrice, deadline, comments,status, buyerEmail
+        }
+
+        console.log(bidInfo)
+
+    }
 
     return (
       <div className="flex shadow-2xl my-20 p-10 md:space-x-10">
@@ -23,10 +62,11 @@ const JobDetails = () => {
         </div>
 
         {/* Place a bid */}
-        <div className="w-full md:w-1/2">
+        <div className="w-full md:w-1/2 space-y-5">
           <h1 className="font-bold text-xl">Place Your Bid</h1>
+          <hr />
 
-          <form className="space-y-6">
+          <form onSubmit={handelPlaceTheBid} className="space-y-6">
             <div className="flex space-x-10">
               <div>
                 <label htmlFor="Email">Email</label>
@@ -73,7 +113,7 @@ const JobDetails = () => {
                 <label htmlFor="Price">Comments</label> <br />
                 <textarea
                   name="comments"
-                  className="w-full border border-gray-400"
+                  className="w-full border border-gray-400 px-2 py-1"
                   id=""
                 ></textarea>
               </div>
