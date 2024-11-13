@@ -14,6 +14,7 @@ import WritingTranslation from "../Components/WritingTranslation";
 import AddJobs from "../Pages/AddJobs/AddJobs";
 import PrivateRoute from "./PrivateRoute";
 import JobDetails from "../Pages/JobDetails/JobDetails";
+import MyPostedJobs from "../Pages/MyPostedJobs/MyPostedJobs";
 
 const router = createBrowserRouter([
   {
@@ -91,6 +92,10 @@ const router = createBrowserRouter([
         loader: ({ params }) =>
           fetch(`http://localhost:5000/jobDetails/${params.id}`),
       },
+      {
+        path:"/myPostedJobs",
+        element: <PrivateRoute><MyPostedJobs></MyPostedJobs></PrivateRoute>,
+      }
     ],
   },
 ]);
