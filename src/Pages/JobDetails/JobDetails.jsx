@@ -23,7 +23,7 @@ const JobDetails = () => {
         }
         const form = e.target 
         const sellerEmail = user?.email 
-        const name = form.name.value 
+        const title = form.title.value 
         const offerPrice = form.price.value 
         const deadline = form.deadline.value 
         const comments = form.comments.value 
@@ -43,8 +43,14 @@ const JobDetails = () => {
 
 
         const bidInfo = {
-            sellerEmail, name, offerPrice, deadline, comments,status, buyerEmail
-        }
+          sellerEmail,
+          title,
+          offerPrice,
+          deadline,
+          comments,
+          status,
+          buyerEmail,
+        };
 
         axios.post("http://localhost:5000/allBids", bidInfo)
         .then(res=>{
@@ -92,11 +98,12 @@ const JobDetails = () => {
                 />
               </div>
               <div>
-                <label htmlFor="Name">Name</label>
+                <label htmlFor="Name">Title</label>
                 <input
                   type="text"
-                  name="name"
+                  name="title"
                   id=""
+                  value={title}
                   className="w-full border border-gray-400 px-2 py-1"
                 />
               </div>
