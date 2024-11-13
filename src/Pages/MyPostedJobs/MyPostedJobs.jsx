@@ -6,20 +6,18 @@ import MyPostedJobsTable from './MyPostedJobsTable';
 const MyPostedJobs = () => {
 
     const {user} = useContext(AuthContext)
-    const [data, setData] = useState()
-    const [myPostedJobsData, setMyPostedJobsData] = useState(data);
+    const [myPostedJobsData, setMyPostedJobsData] = useState()
 
-    
-
+  
     useEffect(()=>{
         const myPostedJobs = async() =>{
            await axios
              .get(`http://localhost:5000/myPostedJobs/${user.email}`)
-             .then((res) => setData(res.data));
+             .then((res) => setMyPostedJobsData(res.data));
         }
         myPostedJobs()
     },[])
-    
+
     return (
       <div className="my-20">
         <div className="overflow-x-auto">
