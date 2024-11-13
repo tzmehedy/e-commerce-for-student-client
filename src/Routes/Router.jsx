@@ -13,6 +13,7 @@ import AiServices from "../Components/AiServices";
 import WritingTranslation from "../Components/WritingTranslation";
 import AddJobs from "../Pages/AddJobs/AddJobs";
 import PrivateRoute from "./PrivateRoute";
+import JobDetails from "../Pages/JobDetails/JobDetails";
 
 const router = createBrowserRouter([
   {
@@ -80,6 +81,11 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      {
+        path:"/jobDetails/:id",
+        element: <JobDetails></JobDetails>,
+        loader: ({params}) => fetch(`http://localhost:5000/jobDetails/${params.id}`)
+      }
     ],
   },
 ]);
