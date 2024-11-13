@@ -1,10 +1,12 @@
-import React, { useContext } from 'react';
-import { useLoaderData } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Provider/AuthProvider';
 import Swal from 'sweetalert2';
+import axios from 'axios';
 
 const JobDetails = () => {
     const jobInfo = useLoaderData()
+    const navigate = useNavigate()
 
     const {user} = useContext(AuthContext)
 
@@ -44,8 +46,19 @@ const JobDetails = () => {
             sellerEmail, name, offerPrice, deadline, comments,status, buyerEmail
         }
 
-        console.log(bidInfo)
+        axios.post("http://localhost:5000/allBids", bidInfo)
+        .then(res=>{
+          Swal.fire({
+            title: "Success",
+            text: "Successfully Place your bid",
+            icon: "Success",
+          });
 
+          navigate("/")
+
+        })
+
+        
     }
 
     return (
