@@ -54,6 +54,14 @@ const Login = () => {
 
     loginWithGoogle()
     .then(result=>{
+      console.log(result)
+      const loggedUser = result?.user?.email
+
+      axios
+        .post("http://localhost:5000/jwt", {loggedUser}, {
+          withCredentials: true,
+        })
+        .then((res) => console.log(res.data));
       Swal.fire({
         text: "Login Successfully",
         icon: "success",

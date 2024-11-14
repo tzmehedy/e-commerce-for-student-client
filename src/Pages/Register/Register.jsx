@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Provider/AuthProvider';
 import Swal from 'sweetalert2';
+import axios from 'axios';
 
 const Register = () => {
   const {signUpWithEmailPass } = useContext(AuthContext);
@@ -20,6 +21,13 @@ const Register = () => {
 
     signUpWithEmailPass(email, password)
       .then((result) => {
+        const loggedUser = { email };
+
+        axios
+          .post("http://localhost:5000/jwt", loggedUser, {
+            withCredentials: true,
+          })
+          .then((res) => console.log(res.data));
         navigate("/");
       })
       .catch((error) => {
