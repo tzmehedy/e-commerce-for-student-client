@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import logo from '../assets/images/Logo (2).png'
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Provider/AuthProvider';
 import Swal from 'sweetalert2';
 import { RxAvatar } from 'react-icons/rx';
@@ -8,8 +8,8 @@ import { RxAvatar } from 'react-icons/rx';
 
 const NavBar = () => {
  const {user, logOut} = useContext(AuthContext)
+ const navigate = useNavigate()
  const [userRole, setUserRole] = useState(true)
- console.log(user)
     const navLinks = (
       <>
         <li className='mr-2'>
@@ -24,9 +24,6 @@ const NavBar = () => {
           <NavLink to={'/my-Bids'}>My Bids</NavLink>
         </li> : ""
         }
-        
-
-
         {
           user && userRole === true ? <><li className='mr-2'>
           <NavLink to={'/addJobs'}>Add Jobs</NavLink>
@@ -93,7 +90,10 @@ const NavBar = () => {
         </div>
         <div className="navbar-end">
           {
-            user ? <button onClick={()=>setUserRole(!userRole)} className='mr-2 underline'>
+            user ? <button onClick={()=>{
+              navigate("/")
+              setUserRole(!userRole)
+            }} className='mr-2 underline'>
             {
               userRole ? "Switch to selling" : "Switch to buying"
             }

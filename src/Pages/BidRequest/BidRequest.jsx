@@ -43,6 +43,7 @@ const BidRequest = () => {
               {allBidsRequest?.map((bid) => (
                 <BidRequestTable
                   bid={bid}
+                  getData={getData}
                 ></BidRequestTable>
               ))}
             </tbody>
