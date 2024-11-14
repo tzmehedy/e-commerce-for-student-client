@@ -38,7 +38,7 @@ const MyBids = () => {
 
             <tbody>
               {allBidsRequest?.map((bid) => (
-                <MyBidTable bid={bid}></MyBidTable>
+                <MyBidTable bid={bid} getData={getData}></MyBidTable>
               ))}
             </tbody>
           </table>

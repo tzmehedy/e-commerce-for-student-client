@@ -4,6 +4,7 @@ import { FcGoogle } from 'react-icons/fc';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Provider/AuthProvider';
 import Swal from 'sweetalert2';
+import axios from 'axios';
 
 
 
@@ -24,11 +25,19 @@ const Login = () => {
 
     loginWithEmailPassword(email,password)
     .then(result=>{
+
+      const loggedUser = {email}
+
+      axios.post("http://localhost:5000/jwt", loggedUser, {withCredentials:true})
+      .then(res=>console.log(res.data))
+
+
       Swal.fire({
         text: "Login Successfully",
         icon: "success",
       });
       navigate(location.state? location.state : "/")
+      
     })
     .catch(error=>{
       Swal.fire({

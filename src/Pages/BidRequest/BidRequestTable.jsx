@@ -3,6 +3,7 @@ import React from 'react';
 
 const BidRequestTable = ({ bid, getData }) => {
   const handelStatus = async (id, previousStatus, currentStatus) => {
+    if(previousStatus === currentStatus) return
     const { data } = await axios.patch(
       `http://localhost:5000/updateStatus/${id}`,
       { currentStatus }
@@ -27,12 +28,14 @@ const BidRequestTable = ({ bid, getData }) => {
 
         <td className="space-x-2">
           <button
+            disabled={bid.status === "Complete"}
             onClick={() => handelStatus(bid._id, bid.status, "In Progress")}
             className="bg-green-500 font-bold px-2 py-1 rounded-md"
           >
             Accept
           </button>
           <button
+            disabled={bid.status === "Complete"}
             onClick={() => handelStatus(bid._id, bid.status, "Rejected")}
             className="bg-red-500 font-bold px-2 py-1 rounded-md"
           >
