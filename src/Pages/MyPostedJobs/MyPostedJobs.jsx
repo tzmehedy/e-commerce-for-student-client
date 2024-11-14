@@ -12,7 +12,7 @@ const MyPostedJobs = () => {
     useEffect(()=>{
         const myPostedJobs = async() =>{
            await axios
-             .get(`http://localhost:5000/myPostedJobs/${user.email}`)
+             .get(`http://localhost:5000/myPostedJobs/${user.email}`, {withCredentials:true})
              .then((res) => setMyPostedJobsData(res.data));
         }
         myPostedJobs()
