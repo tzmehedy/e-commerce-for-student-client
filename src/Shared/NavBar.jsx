@@ -21,7 +21,7 @@ const NavBar = () => {
 
         {
           user && userRole !== true ? <li className='mr-2'>
-          <NavLink to={'/myBids'}>My Bids</NavLink>
+          <NavLink to={'/my-Bids'}>My Bids</NavLink>
         </li> : ""
         }
         
