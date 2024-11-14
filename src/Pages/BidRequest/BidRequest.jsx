@@ -1,11 +1,29 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import BidRequestTable from './BidRequestTable';
+import axios from 'axios';
+import { AuthContext } from '../../Provider/AuthProvider';
 
 const BidRequest = () => {
-    const allBidsRequest = useLoaderData()
+    
+    const {user} = useContext(AuthContext)
+
+    const [allBidsRequest, setAllBidsRequest] = useState()
+
+    useEffect(()=>{
+      getData()
+    },[user])
+
+
+
+    const getData = async() =>{
+      const { data } = await axios.get(
+        `http://localhost:5000/bidRequest/${user.email}`
+      );
+      setAllBidsRequest(data);
+    }
     return (
-      <div className='my-20'>
+      <div className="my-20">
         <div className="">
           <table className="table">
             {/* head */}
@@ -22,7 +40,7 @@ const BidRequest = () => {
             </thead>
 
             <tbody>
-              {allBidsRequest.map((bid) => (
+              {allBidsRequest?.map((bid) => (
                 <BidRequestTable
                   bid={bid}
                 ></BidRequestTable>

@@ -35,7 +35,7 @@ const NavBar = () => {
           <NavLink to={'/myPostedJobs'}>My Posted Jobs</NavLink>
         </li>
         <li className='mr-2'>
-          <NavLink to={`/bidRequest/${user?.email}`}>Bid Request</NavLink>
+          <NavLink to={"/bidRequest"}>Bid Request</NavLink>
         </li></> : ""
         }
         

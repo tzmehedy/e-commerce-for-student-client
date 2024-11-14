@@ -17,6 +17,7 @@ import JobDetails from "../Pages/JobDetails/JobDetails";
 import MyPostedJobs from "../Pages/MyPostedJobs/MyPostedJobs";
 import UpdateMyPostedJobModal from "../Components/UpdateMyPostedJobModal";
 import BidRequest from "../Pages/BidRequest/BidRequest";
+import MyBids from "../Pages/MyBids/MyBids";
 
 const router = createBrowserRouter([
   {
@@ -113,12 +114,21 @@ const router = createBrowserRouter([
           fetch(`http://localhost:5000/jobDetails/${params.id}`),
       },
       {
-        path: "/bidRequest/:email",
-        element: <BidRequest></BidRequest>,
-        loader: ({ params }) =>
-          fetch(
-            `http://localhost:5000/bidRequest/${params.email}`
-          ),
+        path: "/bidRequest",
+        element: (
+          <PrivateRoute>
+            <BidRequest></BidRequest>
+          </PrivateRoute>
+        ),
+      },
+
+      {
+        path: "/my-bids",
+        element: (
+          <PrivateRoute>
+            <MyBids></MyBids>
+          </PrivateRoute>
+        ),
       },
     ],
   },
