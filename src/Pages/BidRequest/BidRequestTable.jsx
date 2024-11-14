@@ -32,7 +32,10 @@ const BidRequestTable = ({ bid, getData }) => {
           >
             Accept
           </button>
-          <button className="bg-red-500 font-bold px-2 py-1 rounded-md">
+          <button
+            onClick={() => handelStatus(bid._id, bid.status, "Rejected")}
+            className="bg-red-500 font-bold px-2 py-1 rounded-md"
+          >
             reject
           </button>
         </td>
