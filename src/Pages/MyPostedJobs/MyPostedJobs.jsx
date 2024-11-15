@@ -1,18 +1,19 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { AuthContext } from '../../Provider/AuthProvider';
+import React, {useEffect, useState } from 'react';
 import axios from 'axios';
 import MyPostedJobsTable from './MyPostedJobsTable';
+import useAuth from '../../Hooks/useAuth';
+import useAxiosSecure from '../../Hooks/useAxiosSecure';
 
 const MyPostedJobs = () => {
-
-    const {user} = useContext(AuthContext)
-    const [myPostedJobsData, setMyPostedJobsData] = useState()
+  const {user} = useAuth()
+  const axiosSecure = useAxiosSecure()
+  const [myPostedJobsData, setMyPostedJobsData] = useState()
 
   
     useEffect(()=>{
         const myPostedJobs = async() =>{
-           await axios
-             .get(`http://localhost:5000/myPostedJobs/${user.email}`, {withCredentials:true})
+           await axiosSecure
+             .get(`/myPostedJobs/${user.email}`)
              .then((res) => setMyPostedJobsData(res.data));
         }
         myPostedJobs()
