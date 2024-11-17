@@ -6,22 +6,49 @@ import AllJobsCard from '../../Components/AllJobsCard';
 const AllJobs = () => {
     const [jobs,setJobs] = useState([])
 
-    const [itemsPerPage, setItemsPerPage] = useState(2)
+    const [itemsPerPage, setItemsPerPage] = useState(1)
 
-    const [count, setCount] = useState()
+    const [currentPage, setCurrentPage] = useState()
+
+    const [count, setCount] = useState(0)
+
+    const handelPaginationButton = (val) => {
+      setCurrentPage(val + 1);
+    };
 
 
-    useEffect(()=>{
-        getData()
-    },[])
+    useEffect(() => {
+      getData();
+    }, [currentPage, itemsPerPage]);
 
 
     const getData = async() =>{
-        const {data}= await axios.get("http://localhost:5000/all-Jobs")
+        const { data } = await axios.get(
+          `http://localhost:5000/all-Jobs?page=${currentPage}&&size=${itemsPerPage}`
+        );
         setJobs(data) 
     }
+    
 
-    const pages = [...Array(5).keys()]
+    useEffect(()=>{
+        const getCountOfData = async () => {
+          const { data } = await axios.get(
+            "http://localhost:5000/allJobs-count"
+          );
+          setCount(data.count);
+        }
+        getCountOfData()
+    },[])
+
+
+    const numberOfPages = Math.ceil(count/itemsPerPage)
+
+    const pages = [...Array(numberOfPages).keys()];
+
+
+    
+
+   
 
     return (
       <div className="my-20">
@@ -81,7 +108,7 @@ const AllJobs = () => {
           <button className="btn"> Previous</button>
 
           {pages.map((page) => (
-            <button className="btn">{page + 1}</button>
+            <button key={page} onClick={()=>{handelPaginationButton(page)}} className="btn">{page + 1}</button>
           ))}
 
           <button className="btn"> Next</button>
