@@ -1,6 +1,28 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import AllJobsCard from '../../Components/AllJobsCard';
+
 
 const AllJobs = () => {
+    const [jobs,setJobs] = useState([])
+
+    const [itemsPerPage, setItemsPerPage] = useState(2)
+
+    const [count, setCount] = useState()
+
+
+    useEffect(()=>{
+        getData()
+    },[])
+
+
+    const getData = async() =>{
+        const {data}= await axios.get("http://localhost:5000/all-Jobs")
+        setJobs(data) 
+    }
+
+    const pages = [...Array(5).keys()]
+
     return (
       <div className="my-20">
         <form className="flex justify-center space-x-5">
@@ -47,6 +69,23 @@ const AllJobs = () => {
 
           <button className="btn bg-[#F9128F] font-bold">Reset</button>
         </form>
+
+        <div className="grid grid-cols-1  md:grid-cols-3 mt-10 gap-10">
+          {jobs.map((job) => (
+            <AllJobsCard job={job} key={job._id}></AllJobsCard>
+          ))}
+        </div>
+
+        {/* Pagination */}
+        <div className="mt-10 flex justify-center space-x-2">
+          <button className="btn"> Previous</button>
+
+          {pages.map((page) => (
+            <button className="btn">{page + 1}</button>
+          ))}
+
+          <button className="btn"> Next</button>
+        </div>
       </div>
     );
 };

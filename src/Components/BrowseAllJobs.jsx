@@ -6,11 +6,7 @@ import { useLoaderData } from 'react-router-dom';
 
 const BrowseAllJobs = () => {
   const webDevelopmentJobs = useLoaderData();
-  const [categoryJobs, setCategoryJobs] = useState(webDevelopmentJobs);
-
-  
-
- 
+  const [categoryJobs, setCategoryJobs] = useState(webDevelopmentJobs)
 
   const handelShowJobsByCategory = (category) =>{
       axios
@@ -84,7 +80,7 @@ const BrowseAllJobs = () => {
 
         <div className='grid grid-cols-1 md:grid-cols-3 my-20 gap-10'>
           {
-            categoryJobs && categoryJobs.map(job=> <AllJobsCard job={job} key={job._id}></AllJobsCard>)
+            categoryJobs.map(job=> <AllJobsCard job={job} key={job._id}></AllJobsCard>)
           }
         </div>
       </div>

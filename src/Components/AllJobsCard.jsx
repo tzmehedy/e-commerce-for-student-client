@@ -1,10 +1,7 @@
-import React, { useContext } from 'react';
-import { AuthContext } from '../Provider/AuthProvider';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 const AllJobsCard = ({job}) => {
-
-  console.log(job)
     const {title, deadline, minimumPrice, maximumPrice,email, _id} = job
     return (
       <div className="shadow-2xl p-10 space-y-5 max-h-72 relative">
