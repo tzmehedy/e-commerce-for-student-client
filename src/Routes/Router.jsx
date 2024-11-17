@@ -11,6 +11,7 @@ import MyPostedJobs from "../Pages/MyPostedJobs/MyPostedJobs";
 import UpdateMyPostedJobModal from "../Components/UpdateMyPostedJobModal";
 import BidRequest from "../Pages/BidRequest/BidRequest";
 import MyBids from "../Pages/MyBids/MyBids";
+import AllJobs from "../Pages/AllJobs/AllJobs";
 
 const router = createBrowserRouter([
   {
@@ -21,7 +22,9 @@ const router = createBrowserRouter([
         path: "/",
         element: <Home></Home>,
         loader: () =>
-          fetch("http://localhost:5000/allJobsByCategory?category=Web Development"),
+          fetch(
+            "http://localhost:5000/allJobsByCategory?category=Web Development"
+          ),
         // children: [
         //   {
         //     path: "/",
@@ -71,6 +74,10 @@ const router = createBrowserRouter([
       {
         path: "/about",
         element: <About></About>,
+      },
+      {
+        path: "/allJobs",
+        element: <AllJobs></AllJobs>
       },
       {
         path: "/addJobs",

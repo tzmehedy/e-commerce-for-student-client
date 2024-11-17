@@ -18,6 +18,11 @@ const NavBar = () => {
         <li className='mr-2'>
           <NavLink to={'/about'}>About</NavLink>
         </li>
+        <li className='mr-2'>
+          <NavLink to={'/allJobs'}>All Jobs</NavLink>
+        </li>
+
+        
 
         {
           user && userRole !== true ? <li className='mr-2'>
