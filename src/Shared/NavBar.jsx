@@ -4,10 +4,11 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Provider/AuthProvider';
 import Swal from 'sweetalert2';
 import { RxAvatar } from 'react-icons/rx';
+import useAuth from '../Hooks/useAuth';
 
 
 const NavBar = () => {
- const {user, logOut} = useContext(AuthContext)
+ const {user,logOut} = useAuth()
  const navigate = useNavigate()
  const [userRole, setUserRole] = useState(true)
     const navLinks = (
