@@ -1,27 +1,44 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { useLoaderData } from 'react-router-dom';
 import BidRequestTable from './BidRequestTable';
-import axios from 'axios';
-import { AuthContext } from '../../Provider/AuthProvider';
+import useAuth from '../../Hooks/useAuth';
+import useAxiosSecure from '../../Hooks/useAxiosSecure';
+import { useQuery } from '@tanstack/react-query';
+
 
 const BidRequest = () => {
     
-    const {user} = useContext(AuthContext)
-
-    const [allBidsRequest, setAllBidsRequest] = useState()
-
-    useEffect(()=>{
-      getData()
-    },[user])
+    const {user} = useAuth()
+    const axiosSecure = useAxiosSecure()
 
 
+
+   const {data: allBidsRequest = [], isLoading, isError, error, refetch} = useQuery({
+      queryFn: () => getData(),
+      queryKey: ["allBidsRequest"],
+    });
+
+    console.log(allBidsRequest)
+    console.log(isLoading)
+
+    
+
+    // const [allBidsRequest, setAllBidsRequest] = useState()
+
+    // useEffect(()=>{
+    //   getData()
+    // },[user])
 
     const getData = async() =>{
-      const { data } = await axios.get(
-        `http://localhost:5000/bidRequest/${user.email}`
+      const { data } = await axiosSecure.get(
+        `/bidRequest/${user?.email}`
       );
-      setAllBidsRequest(data);
+      return data
     }
+    if(isLoading) return <p>Data is loading..........</p>
+
+    if(error || isError){
+      console.log(error.message)
+    }
+
     return (
       <div className="my-20">
         <div className="">
@@ -43,7 +60,8 @@ const BidRequest = () => {
               {allBidsRequest?.map((bid) => (
                 <BidRequestTable
                   bid={bid}
-                  getData={getData}
+                  key={bid._id}
+                  refetch={refetch}
                 ></BidRequestTable>
               ))}
             </tbody>

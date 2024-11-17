@@ -1,14 +1,27 @@
-import axios from 'axios';
+import { useMutation } from '@tanstack/react-query';
 import React from 'react';
+import useAxiosSecure from '../../Hooks/useAxiosSecure';
 
-const BidRequestTable = ({ bid, getData }) => {
-  const handelStatus = async (id, previousStatus, currentStatus) => {
-    if(previousStatus === currentStatus) return
-    const { data } = await axios.patch(
-      `http://localhost:5000/updateStatus/${id}`,
-      { currentStatus }
-    );
-    getData();
+const BidRequestTable = ({ bid, refetch }) => {
+
+  console.log(bid.status)
+
+  const axiosSecure = useAxiosSecure()
+
+  const { mutateAsync } = useMutation({
+    mutationFn: async ({id, status}) => {
+      console.log(status);
+      const { data } = await axiosSecure.patch(`/updateStatus/${id}`,{status})
+      console.log(data)
+    },
+    onSuccess: () => {
+      refetch();
+    },
+  });
+
+  const handelStatus = async (id, previousStatus, status) => {
+    if (previousStatus === status) return;
+    await mutateAsync({id, status});
   };
   return (
     <>
