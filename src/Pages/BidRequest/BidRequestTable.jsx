@@ -1,6 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import React from 'react';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
+import axios from 'axios';
 
 const BidRequestTable = ({ bid, refetch }) => {
 
@@ -19,10 +20,17 @@ const BidRequestTable = ({ bid, refetch }) => {
     },
   });
 
-  const handelStatus = async (id, previousStatus, status) => {
+  const handelReject = async (id, previousStatus, status) => {
     if (previousStatus === status) return;
-    await mutateAsync({id, status});
+    await mutateAsync({ id, status });
   };
+
+
+  const handelAccept = async(id)=>{
+    const { data } = await axios.post("http://localhost:5000/order",{id})
+    window.location.replace(data.url)
+
+  }
   return (
     <>
       <tr className="">
@@ -42,14 +50,14 @@ const BidRequestTable = ({ bid, refetch }) => {
         <td className="space-x-2">
           <button
             disabled={bid.status === "Complete"}
-            onClick={() => handelStatus(bid._id, bid.status, "In Progress")}
+            onClick={() => handelAccept(bid._id)}
             className="bg-green-500 font-bold px-2 py-1 rounded-md"
           >
             Accept
           </button>
           <button
             disabled={bid.status === "Complete"}
-            onClick={() => handelStatus(bid._id, bid.status, "Rejected")}
+            onClick={() => handelReject(bid._id, bid.status, "Rejected")}
             className="bg-red-500 font-bold px-2 py-1 rounded-md"
           >
             reject

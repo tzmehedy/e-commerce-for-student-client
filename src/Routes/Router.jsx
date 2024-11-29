@@ -12,6 +12,7 @@ import UpdateMyPostedJobModal from "../Components/UpdateMyPostedJobModal";
 import BidRequest from "../Pages/BidRequest/BidRequest";
 import MyBids from "../Pages/MyBids/MyBids";
 import AllJobs from "../Pages/AllJobs/AllJobs";
+import axios from "axios";
 
 const router = createBrowserRouter([
   {
@@ -22,8 +23,8 @@ const router = createBrowserRouter([
         path: "/",
         element: <Home></Home>,
         loader: () =>
-          fetch(
-            "http://localhost:5000/allJobsByCategory?category=Web Development"
+          axios.get(
+            "http://localhost:5000/allJobsByCategory?category=Web Development",{withCredentials:true}
           ),
         
       },
@@ -59,7 +60,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/jobDetails/${params.id}`),
+          axios.get(`http://localhost:5000/jobDetails/${params.id}`),
       },
       {
         path: "/myPostedJobs",
@@ -77,7 +78,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/jobDetails/${params.id}`),
+          axios.get(`http://localhost:5000/jobDetails/${params.id}`),
       },
       {
         path: "/bidRequest",
